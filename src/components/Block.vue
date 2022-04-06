@@ -1,5 +1,5 @@
 <template>
-  <div class="block" v-if="showBlock">click me</div>
+  <div class="block" v-if="showBlock" @click="stopTimer">click me</div>
 </template>
 
 <script>
@@ -8,22 +8,29 @@ export default {
   data() {
     return {
       showBlock: false,
+      timer: null,
+      reactionTime: 0,
     };
   },
   //lifecykle hooks placed here
   mounted() {
-    console.log("component mounted");
     setTimeout(() => {
       this.showBlock = true;
-      console.log(this.delay);
+      this.startTimer();
     }, this.delay);
   },
-  updated() {
-    //if perorm any code, put it here
-    console.log("component updated");
-  },
-  unmounted() {
-    console.log("unmounted");
+  methods: {
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.reactionTime += 10;
+      }, 10);
+    },
+    stopTimer() {
+      clearInterval(this.timer);
+      //second arg sends over the reaction time
+      //with costum event 'end'
+      this.$emit("end", this.reactionTime);
+    },
   },
 };
 </script>
