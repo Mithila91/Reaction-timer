@@ -1,5 +1,5 @@
 # reaction-timer
-
+This reaction timer is a part of me learning Vue 3. 
 ## Project setup
 ```
 npm install
